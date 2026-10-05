@@ -1,6 +1,17 @@
 import { NavLink, Route, Routes } from 'react-router-dom'
+import Activities from './components/Activities.jsx'
+import Leaderboard from './components/Leaderboard.jsx'
+import Teams from './components/Teams.jsx'
+import Users from './components/Users.jsx'
+import Workouts from './components/Workouts.jsx'
 
-const sections = ['Activities', 'Teams', 'Leaderboard', 'Workouts']
+const sections = [
+  { title: 'Activities', path: '/activities' },
+  { title: 'Leaderboard', path: '/leaderboard' },
+  { title: 'Teams', path: '/teams' },
+  { title: 'Users', path: '/users' },
+  { title: 'Workouts', path: '/workouts' },
+]
 
 function HomePage() {
   return (
@@ -17,27 +28,16 @@ function HomePage() {
         Track your activity, team up, and build healthy habits together.
       </p>
       <div className="d-flex flex-wrap justify-content-center gap-2 mt-4">
-        {sections.map((section) => (
+        {sections.map(({ title, path }) => (
           <NavLink
             className="btn btn-outline-primary"
-            key={section}
-            to={`/${section.toLowerCase()}`}
+            key={path}
+            to={path}
           >
-            Explore {section}
+            Explore {title}
           </NavLink>
         ))}
       </div>
-    </section>
-  )
-}
-
-function SectionPage({ title }) {
-  return (
-    <section className="py-5">
-      <h1 className="h2">{title}</h1>
-      <p className="text-body-secondary">
-        Your {title.toLowerCase()} will appear here.
-      </p>
     </section>
   )
 }
@@ -52,15 +52,15 @@ function App() {
             <span>OctoFit Tracker</span>
           </NavLink>
           <div className="navbar-nav ms-auto flex-row flex-wrap gap-3">
-            {sections.map((section) => (
+            {sections.map(({ title, path }) => (
               <NavLink
                 className={({ isActive }) =>
                   `nav-link${isActive ? ' active fw-semibold' : ''}`
                 }
-                key={section}
-                to={`/${section.toLowerCase()}`}
+                key={path}
+                to={path}
               >
-                {section}
+                {title}
               </NavLink>
             ))}
           </div>
@@ -69,14 +69,12 @@ function App() {
       <main className="container py-4">
         <Routes>
           <Route path="/" element={<HomePage />} />
-          {sections.map((section) => (
-            <Route
-              element={<SectionPage title={section} />}
-              key={section}
-              path={`/${section.toLowerCase()}`}
-            />
-          ))}
-          <Route path="*" element={<SectionPage title="Page not found" />} />
+          <Route path="/activities" element={<Activities />} />
+          <Route path="/leaderboard" element={<Leaderboard />} />
+          <Route path="/teams" element={<Teams />} />
+          <Route path="/users" element={<Users />} />
+          <Route path="/workouts" element={<Workouts />} />
+          <Route path="*" element={<h1 className="h2 py-5">Page not found</h1>} />
         </Routes>
       </main>
     </div>

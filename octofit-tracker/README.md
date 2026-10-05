@@ -20,9 +20,11 @@ development server forwards `/api` requests to the API. The API serves
 base URL is `https://${CODESPACE_NAME}-8000.app.github.dev`; locally, it is
 `http://localhost:8000`.
 
-The frontend API helper reads `VITE_CODESPACE_NAME` from the environment. In
-Codespaces, set it in `octofit-tracker/frontend/.env.local` to the value of
-`CODESPACE_NAME`; leave it unset for local development.
+The frontend API helper reads `VITE_CODESPACE_NAME` from the Vite environment.
+It must be defined in Codespaces (for example, in
+`octofit-tracker/frontend/.env.local`) with the value of `CODESPACE_NAME`.
+Leave it unset for local development to use the safe `http://localhost:8000`
+fallback. Restart Vite after changing `.env.local`.
 
 By default, the API connects to
 `mongodb://localhost:27017/octofit_db`. Set `MONGODB_URI` to use another
